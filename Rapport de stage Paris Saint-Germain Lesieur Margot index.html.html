@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rapport de Stage — Paris Saint-Germain · Margot Lesieur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ──────────────────────────────────────────── */
+:root {
+  --bleu:    #003087;
+  --encre:   #0A1628;
+  --rouge:   #DA291C;
+  --or:      #C9A227;
+  --blanc:   #FFFFFF;
+  --brume:   #F0F4FF;
+  --ivoire:  #FAF8F2;
+  --ardoise: #8B9BB4;
+  --gris:    #E8EDF5;
+  --texte:   #1C2333;
+
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-serif:   'Playfair Display', serif;
+
+  --max-w: 860px;
+  --gutter: 2.5rem;
+}
+
+/* ─── RESET & BASE ────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: var(--texte); background: var(--blanc); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── COUVERTURE ──────────────────────────────────────── */
+.cover {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--encre);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 3rem var(--gutter);
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 58%;
+  background: var(--rouge);
+  clip-path: polygon(0 82%, 100% 0%, 100% 100%, 0 100%);
+  z-index: 0;
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23ffffff08'/%3E%3C/svg%3E");
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cover-top { position: relative; z-index: 2; }
+.cover-mid { position: relative; z-index: 2; flex: 1; display: flex; align-items: center; }
+.cover-bot { position: relative; z-index: 2; }
+
+.cover-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .85rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+  border-left: 3px solid var(--rouge);
+  padding-left: .75rem;
+  margin-bottom: .5rem;
+}
+
+.cover-univ {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--ardoise);
+  letter-spacing: .08em;
+}
+
+.cover-titles { line-height: .92; max-width: 88%; }
+
+.cover-rapport {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 4rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  letter-spacing: -.02em;
+}
+
+.cover-club {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 7.5vw, 6.5rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  letter-spacing: -.03em;
+}
+
+.cover-club span {
+  color: var(--rouge);
+  display: block;
+}
+
+.cover-meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.cover-author {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--blanc);
+  letter-spacing: .05em;
+}
+
+.cover-author small {
+  display: block;
+  font-weight: 400;
+  font-size: .8rem;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .12em;
+  margin-top: .2rem;
+}
+
+.cover-dates {
+  text-align: right;
+  font-family: var(--font-display);
+  font-weight: 300;
+  color: rgba(255,255,255,.5);
+  font-size: .9rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.cover-dates strong {
+  display: block;
+  font-weight: 700;
+  color: rgba(255,255,255,.8);
+  font-size: 1.1rem;
+}
+
+/* Timeline de stage */
+.cover-timeline {
+  display: flex; align-items: center; gap: .9rem;
+  position: relative; z-index: 2;
+}
+.cover-tl-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rouge); flex-shrink: 0; }
+.cover-tl-line { flex: 1; height: 1px; background: rgba(255,255,255,.14); position: relative; }
+.cover-tl-line::after {
+  content: ''; position: absolute; left: 0; top: 0;
+  height: 1px; background: var(--rouge); width: 100%;
+}
+.cover-tl-label { font-family: var(--font-display); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.45); white-space: nowrap; }
+
+/* ─── NAVIGATION STICKY ───────────────────────────────── */
+#nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--encre);
+  border-bottom: 3px solid var(--rouge);
+  display: flex; align-items: center;
+  height: 50px; padding: 0 var(--gutter);
+}
+.nav-brand {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--blanc); white-space: nowrap; margin-right: 2rem; flex-shrink: 0;
+}
+.nav-brand span { color: var(--rouge); }
+.nav-links { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; flex: 1; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-family: var(--font-display);
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  padding: 0 1.1rem; height: 50px; display: flex; align-items: center;
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+  white-space: nowrap; transition: color .2s, border-color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--blanc); border-bottom-color: var(--rouge); }
+
+/* ─── MISE EN PAGE PRINCIPALE ──────────────────────────── */
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ─── SOMMAIRE ────────────────────────────────────────── */
+.toc {
+  background: var(--brume);
+  padding: 4rem 0;
+}
+
+.toc-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.toc-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 2rem;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--gris);
+  border: 1px solid var(--gris);
+}
+
+.toc-item {
+  background: var(--blanc);
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  text-decoration: none;
+  transition: background .15s;
+}
+
+.toc-item:hover { background: var(--brume); }
+
+.toc-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--gris);
+  flex-shrink: 0;
+  min-width: 2.5rem;
+}
+
+.toc-item:hover .toc-num { color: var(--rouge); }
+
+.toc-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--encre);
+  line-height: 1.2;
+}
+
+.toc-sub {
+  font-size: .78rem;
+  color: var(--ardoise);
+  margin-top: .25rem;
+  line-height: 1.4;
+}
+
+/* ─── CHAPTER OPENER (signature élément) ──────────────── */
+.chapter {
+  position: relative;
+  background: var(--encre);
+  padding: 4rem var(--gutter) 3rem;
+  overflow: hidden;
+  page-break-before: always;
+}
+
+.chapter::after {
+  content: attr(data-num);
+  position: absolute;
+  right: -0.02em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(8rem, 20vw, 16rem);
+  line-height: 1;
+  color: rgba(255,255,255,.04);
+  pointer-events: none;
+  user-select: none;
+}
+
+.chapter-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: .75rem;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  line-height: .95;
+  letter-spacing: -.02em;
+}
+
+.chapter-title em {
+  font-style: normal;
+  color: var(--rouge);
+}
+
+.chapter-sub {
+  margin-top: 1.2rem;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--ardoise);
+  max-width: 55ch;
+  line-height: 1.6;
+}
+
+/* ─── SECTION CONTENU ─────────────────────────────────── */
+.section {
+  padding: 3.5rem 0;
+}
+
+.section + .section {
+  border-top: 1px solid var(--gris);
+}
+
+.fi { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+.fi.show { opacity: 1; transform: translateY(0); }
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.55rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--encre);
+  margin-bottom: 1.5rem;
+}
+
+h2 .rouge { color: var(--rouge); }
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--bleu);
+  margin-bottom: .8rem;
+  margin-top: 2rem;
+  padding-left: .85rem;
+  border-left: 3px solid var(--rouge);
+}
+
+p {
+  font-size: .975rem;
+  line-height: 1.8;
+  color: #2C3547;
+  margin-bottom: 1rem;
+  max-width: 70ch;
+}
+
+p + p { margin-top: .25rem; }
+
+/* ─── REMERCIEMENTS ───────────────────────────────────── */
+.remerciements {
+  background: var(--encre);
+  color: var(--blanc);
+  padding: 4.5rem 0;
+}
+
+.remerciements-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1.5rem;
+}
+
+.remerciements blockquote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--blanc);
+  max-width: 28em;
+  border: none;
+  padding: 0;
+}
+
+.remerciements p {
+  color: var(--ardoise);
+  font-size: .9rem;
+  max-width: 60ch;
+  line-height: 1.8;
+  margin-top: 2rem;
+}
+
+.remerciements-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.rem-person { font-family: var(--font-display); }
+
+.rem-person strong {
+  display: block;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--blanc);
+}
+
+.rem-person span {
+  font-size: .78rem;
+  color: var(--ardoise);
+  letter-spacing: .05em;
+}
+
+/* ─── MEGA STAT (signature plein écran) ───────────────── */
+.megastat {
+  background: var(--bleu);
+  padding: 4rem var(--gutter);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.megastat-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: .5rem;
+}
+
+.megastat-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 16vw, 11rem);
+  line-height: .95;
+  color: var(--blanc);
+  letter-spacing: -.03em;
+}
+
+.megastat-num span { color: var(--rouge); }
+
+.megastat-caption {
+  margin-top: 1rem;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: rgba(255,255,255,.6);
+  max-width: 42em;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* ─── STATS GRID ──────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--gris);
+  border: 1px solid var(--gris);
+  margin: 2.5rem 0;
+}
+.stat-cell { background: var(--blanc); padding: 1.6rem 1.4rem; }
+.stat-num {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: 2.4rem; color: var(--bleu); line-height: 1;
+}
+.stat-lbl {
+  font-family: var(--font-display);
+  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ardoise); margin-top: .4rem;
+}
+
+/* ─── PULL QUOTE ──────────────────────────────────────── */
+.pull-quote {
+  position: relative;
+  margin: 3rem 0;
+  padding: 2rem 2.5rem;
+  background: var(--brume);
+  border-left: 5px solid var(--rouge);
+}
+
+.pull-quote p {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--encre);
+  max-width: none;
+  margin: 0;
+}
+
+.pull-quote cite {
+  display: block;
+  margin-top: .8rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  font-style: normal;
+}
+
+/* ─── PULL QUOTE FONCÉE (sur fond bleu) ───────────────── */
+.pull-quote-dark {
+  background: var(--encre);
+  border-left: 5px solid var(--rouge);
+  padding: 2rem 2.5rem;
+  margin: 3rem 0;
+}
+.pull-quote-dark p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.3vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--blanc);
+  max-width: none;
+  margin: 0;
+}
+
+/* ─── HIGHLIGHT BOX (or) ───────────────────────────────── */
+.hbox {
+  background: var(--brume);
+  border-left: 3px solid var(--or);
+  padding: 1.4rem 1.8rem;
+  margin: 1.8rem 0;
+}
+.hbox p { margin: 0; font-size: .9rem; max-width: none; }
+
+/* ─── MISSIONS GRID ───────────────────────────────────── */
+.missions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--gris);
+  border: 1px solid var(--gris);
+  margin-top: 2rem;
+}
+
+.mission-item {
+  background: var(--blanc);
+  padding: 1.8rem 1.6rem;
+}
+
+.mission-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--gris);
+  margin-bottom: .6rem;
+}
+
+.mission-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--encre);
+  margin-bottom: .6rem;
+}
+
+.mission-body {
+  font-size: .875rem;
+  color: #5A6478;
+  line-height: 1.65;
+  max-width: none;
+  margin: 0;
+}
+
+.mission-item:hover .mission-num { color: rgba(218,41,28,.15); }
+
+.mission-item.workshop {
+  background: var(--encre);
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.mission-item.workshop .mission-num { color: rgba(255,255,255,.08); font-size: 4rem; }
+.mission-item.workshop .mission-title { color: var(--rouge); }
+.mission-item.workshop .mission-body { color: rgba(255,255,255,.6); }
+
+/* ─── SKILLS ──────────────────────────────────────────── */
+.skills-row { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.8rem 0; }
+.skill {
+  display: inline-flex; align-items: center;
+  padding: .4rem 1rem;
+  border: 1px solid var(--bleu);
+  font-family: var(--font-display);
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--bleu);
+}
+.skill.filled { background: var(--bleu); color: var(--blanc); border-color: var(--bleu); }
+
+/* ─── PROBLÉMATIQUE ───────────────────────────────────── */
+.problematique {
+  background: var(--rouge);
+  padding: 3rem 0;
+  margin: 0;
+}
+
+.problematique-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .72rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 1rem;
+}
+
+.problematique-text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  max-width: 22em;
+  margin: 0;
+}
+
+/* ─── ANALYSE ITEMS ───────────────────────────────────── */
+.analyse-item {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--gris);
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.analyse-item:last-child { border-bottom: none; }
+
+.analyse-n {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: var(--rouge);
+  line-height: 1;
+  padding-top: .1rem;
+}
+
+.analyse-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--encre);
+  margin-bottom: .6rem;
+}
+
+.analyse-body {
+  font-size: .925rem;
+  line-height: 1.75;
+  color: #2C3547;
+  max-width: none;
+  margin: 0;
+}
+
+/* ─── PERSPECTIVES ────────────────────────────────────── */
+.perspectives-feature {
+  background: var(--encre);
+  padding: 3rem var(--gutter);
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.perspectives-big {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  line-height: .95;
+  letter-spacing: -.02em;
+}
+
+.perspectives-tag {
+  display: inline-block;
+  margin-top: .8rem;
+  background: var(--rouge);
+  color: var(--blanc);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(.9rem, 2vw, 1.3rem);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .35rem .9rem;
+}
+
+.perspectives-body p {
+  color: rgba(255,255,255,.7);
+  font-size: .95rem;
+  max-width: none;
+  margin-bottom: 1rem;
+}
+
+.badge-alternance {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--rouge);
+  color: var(--blanc);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+}
+
+/* ─── ANNEXES ─────────────────────────────────────────── */
+.annexes-intro { background: var(--brume); padding: 0; }
+.annex-card {
+  background: var(--blanc);
+  border: 1px solid var(--gris);
+  border-top: 4px solid var(--bleu);
+  padding: 1.8rem 2rem;
+  margin-bottom: 1.2rem;
+}
+.annex-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--bleu);
+  margin-bottom: .7rem;
+}
+.annex-card p { font-size: .9rem; margin: 0; max-width: none; }
+
+/* ─── LEXIQUE ─────────────────────────────────────────── */
+.lexique { margin-top: 2.5rem; }
+.lex-term { padding: 1.1rem 0; border-bottom: 1px solid var(--gris); }
+.lex-term:last-child { border-bottom: none; }
+.lex-word {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--encre); margin-bottom: .25rem;
+}
+.lex-word::before { content: '— '; color: var(--or); }
+.lex-term p { font-size: .88rem; margin: 0; max-width: none; }
+
+/* ─── CLOSING ─────────────────────────────────────────── */
+.closing {
+  background: var(--encre);
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closing::before {
+  content: 'PSG';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22rem;
+  color: rgba(255,255,255,.03);
+  pointer-events: none;
+  letter-spacing: -.05em;
+}
+
+.closing-inner { position: relative; z-index: 1; }
+
+.closing-tag {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .75rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 1.2rem;
+}
+
+.closing-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  color: var(--blanc);
+  letter-spacing: -.01em;
+  line-height: 1;
+}
+
+.closing-meta {
+  margin-top: .8rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: .9rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+}
+
+.closing-divider {
+  width: 3rem;
+  height: 3px;
+  background: var(--rouge);
+  margin: 1.5rem auto;
+}
+
+/* ─── PRINT ───────────────────────────────────────────── */
+@media print {
+  .cover { min-height: 100vh; page-break-after: always; }
+  .chapter { page-break-before: always; }
+  .toc, .remerciements { page-break-after: always; }
+  #nav { display: none; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * { -webkit-print-color-adjust: exact !important; }
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root { --gutter: 1.25rem; }
+  .toc-grid, .missions-grid, .stats-grid { grid-template-columns: 1fr; }
+  .perspectives-feature { grid-template-columns: 1fr; gap: 1.5rem; }
+  .mission-item.workshop { flex-direction: column; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     COUVERTURE
+═══════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-label">Rapport de Stage — Licence 3 ISIC</div>
+    <div class="cover-univ">Université Bordeaux Montaigne &nbsp;·&nbsp; 2025-2026</div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="cover-titles">
+      <span class="cover-rapport">Rapport de Stage</span>
+      <div class="cover-club">
+        Paris<br>
+        <span>Saint-Germain</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bot">
+    <div class="cover-meta">
+      <div class="cover-author">
+        Margot Lesieur
+        <small>Licence 3 — Information &amp; Communication &nbsp;·&nbsp; ISIC</small>
+      </div>
+      <div class="cover-dates">
+        <strong>29 janvier — 6 mars 2026</strong>
+        Service Post-Production Documentation<br>
+        Boulogne-Billancourt (92)
+      </div>
+    </div>
+    <div class="cover-timeline">
+      <div class="cover-tl-dot"></div>
+      <span class="cover-tl-label">29 janvier 2026</span>
+      <div class="cover-tl-line"></div>
+      <span class="cover-tl-label">6 mars 2026 · 5 semaines</span>
+      <div class="cover-tl-dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+═══════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-brand">Margot Lesieur &nbsp;<span>× PSG</span></div>
+  <div class="nav-links">
+    <a href="#remerciements">Remerciements</a>
+    <a href="#intro">Introduction</a>
+    <a href="#entreprise">Entreprise</a>
+    <a href="#missions">Missions</a>
+    <a href="#analyse">Analyse</a>
+    <a href="#perspectives">Perspectives</a>
+    <a href="#annexes">Lexique</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     SOMMAIRE
+═══════════════════════════════════════════════ -->
+<div class="toc">
+  <div class="toc-inner">
+    <div class="toc-label">Sommaire</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#intro">
+        <div class="toc-num">01</div>
+        <div class="toc-text">
+          <div class="toc-title">Introduction</div>
+          <div class="toc-sub">Contexte du stage · démarche · présentation</div>
+        </div>
+      </a>
+      <a class="toc-item" href="#entreprise">
+        <div class="toc-num">02</div>
+        <div class="toc-text">
+          <div class="toc-title">Présentation de l'entreprise</div>
+          <div class="toc-sub">Historique · organisation · service documentation</div>
+        </div>
+      </a>
+      <a class="toc-item" href="#missions">
+        <div class="toc-num">03</div>
+        <div class="toc-text">
+          <div class="toc-title">Description des missions</div>
+          <div class="toc-sub">Indexation · recherches · dossiers · workshop</div>
+        </div>
+      </a>
+      <a class="toc-item" href="#analyse">
+        <div class="toc-num">04</div>
+        <div class="toc-text">
+          <div class="toc-title">Analyse critique</div>
+          <div class="toc-sub">Enjeux stratégiques · réflexions · bilan</div>
+        </div>
+      </a>
+      <a class="toc-item" href="#perspectives">
+        <div class="toc-num">05</div>
+        <div class="toc-text">
+          <div class="toc-title">Perspectives professionnelles</div>
+          <div class="toc-sub">Orientation · master · alternance</div>
+        </div>
+      </a>
+      <a class="toc-item" href="#annexes">
+        <div class="toc-num">06</div>
+        <div class="toc-text">
+          <div class="toc-title">Lexique</div>
+          <div class="toc-sub">Vocabulaire technique du métier de documentaliste</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     REMERCIEMENTS
+═══════════════════════════════════════════════ -->
+<div class="remerciements" id="remerciements">
+  <div class="wrap">
+    <div class="remerciements-label">Remerciements</div>
+    <blockquote class="fi">
+      Un stage ne se mesure pas seulement aux missions accomplies, mais aux personnes qui permettent d'y grandir.
+    </blockquote>
+    <p class="fi">
+      Je tiens à exprimer ma sincère gratitude envers <strong style="color:#fff">Virginie Lahaye</strong>, Responsable Documentaliste, et <strong style="color:#fff">Salama Sall</strong>, Documentaliste. Toutes deux m'ont encadrée, accompagnée et guidée avec la même disponibilité et la même générosité tout au long de ces cinq semaines. Leur pédagogie, leurs conseils et la confiance qu'elles m'ont accordée ont été déterminants dans ma progression et dans la qualité de cette expérience.
+    </p>
+    <p class="fi">
+      Je souhaite par ailleurs remercier l'ensemble des équipes du Paris Saint-Germain pour leur accueil chaleureux et la qualité de l'environnement de travail, ainsi que l'équipe pédagogique de l'ISIC pour l'encadrement universitaire apporté tout au long de cette année.
+    </p>
+    <div class="remerciements-names fi">
+      <div class="rem-person">
+        <strong>Virginie Lahaye</strong>
+        <span>Responsable Documentaliste — Tutrice &amp; encadrante</span>
+      </div>
+      <div class="rem-person">
+        <strong>Salama Sall</strong>
+        <span>Documentaliste — Tutrice &amp; encadrante</span>
+      </div>
+      <div class="rem-person">
+        <strong>Équipes PSG</strong>
+        <span>Communication Média Digital</span>
+      </div>
+      <div class="rem-person">
+        <strong>ISIC</strong>
+        <span>Équipe pédagogique Bordeaux Montaigne</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 01 — INTRODUCTION
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="01" id="intro">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 01</div>
+    <h1 class="chapter-title">Intro<em>duction</em></h1>
+    <p class="chapter-sub">
+      Présentation du stage, du contexte académique et de la démarche ayant conduit à cette expérience au sein du Paris Saint-Germain.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <p class="fi">
+      Un but est marqué au Parc des Princes. En quelques secondes, l'action est rejouée des dizaines de fois: célébration, ralenti, multicams. Puis, bien après que la foule soit rentrée chez elle, cette séquence devra exister ailleurs, quelque part dans une base de données, décrite, indexée, classée, prête à être retrouvée dans cinq ans pour un anniversaire, un montage, ou une demande de partenaire média. C'est ce travail-là, invisible mais essentiel, que j'ai découvert pendant cinq semaines au sein du service post-production documentation du <strong>Paris Saint-Germain</strong>.
+    </p>
+    <p class="fi">
+      Dans le cadre de ma troisième année de Licence en Information et Communication à l'ISIC, Université Bordeaux Montaigne, j'ai eu l'opportunité d'effectuer mon stage de fin d'année au sein de l'un des clubs sportifs les plus emblématiques du paysage médiatique français et international. Ce stage s'est déroulé du <strong>29 janvier au 6 mars 2026</strong>, pour une durée de cinq semaines.
+    </p>
+    <p class="fi">
+      Le sport professionnel est aujourd'hui un secteur particulièrement médiatisé, où la gestion de l'image et des contenus audiovisuels occupe une place centrale et stratégique. Les grands clubs ne sont plus uniquement des institutions sportives: ils sont devenus de véritables organisations médiatiques, produisant et diffusant en continu vers les médias, les supporters et leurs partenaires.
+    </p>
+    <p class="fi">
+      Dans ce contexte, la gestion des archives audiovisuelles constitue un enjeu majeur, souvent sous-estimé de l'extérieur. Les vidéos de matchs, les interviews de joueurs et les séances d'entraînement représentent un patrimoine documentaire considérable, qui doit être organisé, indexé et rendu facilement accessible pour pouvoir être réutilisé dans de nombreux contextes: communication digitale, production audiovisuelle, relations presse ou projets éditoriaux.
+    </p>
+    <p class="fi">
+      Au cours de ce stage, j'ai intégré l'équipe de documentalistes du club, composée de <strong>Virginie Lahaye</strong>, Responsable Documentaliste, et de <strong>Salama Sall</strong>, Documentaliste, mes deux tutrices et encadrantes au quotidien. Ma mission principale a consisté à participer aux différentes tâches documentaires du service, en particulier l'indexation des vidéos de football masculin et féminin.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 02 — ENTREPRISE
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="02" id="entreprise">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 02</div>
+    <h1 class="chapter-title">Le Paris<br><em>Saint-Germain</em></h1>
+    <p class="chapter-sub">Historique, structure juridique, organisation et service d'accueil.</p>
+  </div>
+</div>
+
+<div class="wrap" style="padding-top:3.5rem">
+  <div class="section">
+    <h2 class="fi">Historique &amp; <span class="rouge">identité</span></h2>
+    <p class="fi">
+      Le Paris Saint-Germain a été fondé en <strong>1970</strong>, à la suite de la fusion entre le Paris Football Club et le Stade Saint-Germain, sous la présidence de <strong>Pierre-Étienne Guyot</strong>, qui devient le premier président du club. L'objectif initial était de doter la capitale française d'un grand club de football capable de rivaliser avec les meilleures formations européennes. Depuis lors, le club s'est progressivement imposé comme la référence du football français, remportant de nombreux titres nationaux (championnats de France, Coupes de France et Coupes de la Ligue) et s'est hissé tout en haut de l'Europe en remportant la Ligue des Champions 2025.
+    </p>
+    <p class="fi">
+      Aujourd'hui, le PSG ne se limite plus au seul football masculin. Le club regroupe plusieurs disciplines sportives de haut niveau: <strong>football féminin, handball et judo</strong>, ce qui en fait une organisation sportive plurielle dont la diversité renforce son image et élargit son audience, aussi bien en France qu'à l'international.
+    </p>
+
+    <div class="stats-grid fi">
+      <div class="stat-cell">
+        <div class="stat-num">1970</div>
+        <div class="stat-lbl">Année de fondation</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">700+</div>
+        <div class="stat-lbl">Collaborateurs</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">800M€</div>
+        <div class="stat-lbl">Chiffre d'affaires annuel</div>
+      </div>
+    </div>
+
+    <h3>Statut juridique et données clés</h3>
+    <p class="fi">
+      Le Paris Saint-Germain est exploité sous la forme d'une <strong>Société Anonyme Sportive Professionnelle (SASP)</strong>, statut juridique spécifique aux clubs sportifs professionnels en France, qui permet d'allier les exigences du sport de haut niveau aux contraintes économiques d'une entreprise commerciale. Le club est détenu depuis 2011 par <strong>Qatar Sports Investments (QSI)</strong>, fonds souverain qatari, ce qui a représenté un tournant décisif dans son développement économique et sportif. Le PSG figure régulièrement dans le top 10 du classement Deloitte Football Money League, qui évalue les revenus des clubs de football à l'échelle mondiale, et a même atteint la 3ᵉ place de ce classement en 2024.
+    </p>
+
+    <h3>Une organisation structurée autour de nombreux métiers</h3>
+    <p class="fi">
+      Au-delà de sa dimension sportive, le Paris Saint-Germain emploie plus de 700 collaborateurs répartis dans plus d'une centaine de métiers différents: communication, marketing, production audiovisuelle, événementiel, gestion des partenariats, billetterie, ressources humaines, gestion administrative et financière. Parmi ces différents services, ceux liés à la production de contenus occupent une place stratégique, la gestion de l'image du club étant devenue une priorité incontournable.
+    </p>
+
+    <div class="pull-quote fi">
+      <p>« C'est précisément dans ce cadre que le travail de documentation audiovisuelle prend tout son sens. Les archives vidéo du club constituent un patrimoine médiatique stratégique qu'il est indispensable de conserver, organiser et valoriser pour qu'il reste exploitable sur le long terme. »</p>
+    </div>
+
+    <h3>Le service de documentation et de post-production</h3>
+    <p class="fi">
+      Mon stage s'est déroulé au sein du service de post-production documentation, rattaché aux équipes de graphistes et de monteurs. Ce service a pour mission principale de gérer, classer et indexer les archives vidéo du club, couvrant l'ensemble de ses disciplines.
+    </p>
+    <p class="fi">
+      Les contenus archivés sont de nature variée: résumés de matchs, séquences d'entraînement, interviews de joueurs, reportages institutionnels et événements du club. J'ai travaillé au quotidien avec Virginie et Salama, et toutes deux m'ont encadrée à parts égales tout au long du stage.
+    </p>
+
+    <h3>La place du stagiaire dans l'organisation</h3>
+    <p class="fi">
+      Intégrée directement au sein de cette équipe sous leur encadrement quotidien, mon rôle consistait principalement à contribuer au travail d'indexation des archives vidéo, à effectuer des recherches ciblées dans la base de données et à participer à la constitution de dossiers thématiques. Cette mission demandait rigueur, capacité d'observation et une bonne connaissance de l'univers du club, notamment de ses joueurs actuels et passés.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 03 — MISSIONS
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="03" id="missions">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 03</div>
+    <h1 class="chapter-title">Mes<br><em>Missions</em></h1>
+    <p class="chapter-sub">
+      Description détaillée des tâches et responsabilités prises en charge au fil des cinq semaines de stage.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <p class="fi">
+      Dès mon arrivée, j'ai bénéficié d'une phase d'intégration progressive encadrée par mes deux tutrices. Les premières journées ont été consacrées à la découverte du logiciel <strong>MAM (Media Asset Management)</strong>, à l'observation du travail des documentalistes et à la familiarisation avec les contenus archivés. Cet outil constitue le cœur du travail documentaire: il permet de stocker les contenus audiovisuels, d'y associer des métadonnées précises, de faciliter la recherche par mots-clés et d'organiser les contenus en collections thématiques. Cette montée en compétences progressive m'a permis de devenir rapidement opérationnelle et de prendre en charge des missions de manière autonome.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="missions-grid">
+    <div class="mission-item fi">
+      <div class="mission-num">01</div>
+      <div class="mission-title">Indexation des résumés de matchs (dossier Socios)</div>
+      <p class="mission-body">Mission confiée durant la prise en main du logiciel MAM : indexer des résumés de matchs au format 10 minutes pour la plateforme Socios. Les rencontres couvraient plusieurs compétitions (Ligue 1, Ligue des Champions, Coupe de France, Trophée des Champions, Supercoupe et Coupe Intercontinentale), avec pour chaque vidéo la saisie précise des actions, des joueurs impliqués et des mots-clés associés.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">02</div>
+      <div class="mission-title">Indexation des entraînements</div>
+      <p class="mission-body">Catégoriser les séquences d'entraînement (exercices techniques, situations défensives et offensives, interactions entre joueurs), des contenus très sollicités pour les publications sur les réseaux sociaux du club. J'ai notamment indexé des séances des 21 et 30 janvier ainsi que du 3 et 4 février 2026.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">03</div>
+      <div class="mission-title">Dossiers thématiques — Nuno Mendes</div>
+      <p class="mission-body">Constitution d'un dossier complet autour de Nuno Mendes: recherche et sélection de 2 buts, 2 passes décisives, 5 séquences d'entraînement et 13 plans d'action avec ballon sur la saison 2025-2026, puis constitution d'un dossier "Best of Nuno Mendes" regroupant les meilleures séquences.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">04</div>
+      <div class="mission-title">Recherches ciblées — Vitinha</div>
+      <p class="mission-body">Recherche exhaustive de toutes les apparitions de Vitinha dans la base de données: sélection des matchs où il réalisait des actions significatives (Lille, Metz, Marseille, Nantes, Rennes, Angers, Nice, Dortmund et d'autres rencontres), afin de constituer un ensemble cohérent de séquences exploitables.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">05</div>
+      <div class="mission-title">Archives historiques — Buts PSG vs Chelsea</div>
+      <p class="mission-body">Valorisation de la mémoire sportive du club: retrouver dans le MAM les buts historiques du PSG face à Chelsea, en m'appuyant sur mes souvenirs des dates approximatives pour cibler directement les saisons correspondantes dans la base de données : séquences de Cavani, Ibrahimović, David Luiz, Thiago Silva, Pastore et Rabiot, avec des archives remontant jusqu'à 2014.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">06</div>
+      <div class="mission-title">Recherche ciblée — PSG vs Marseille</div>
+      <p class="mission-body">Recherche de contenus spécifiques autour du match PSG-Marseille: arrivée du bus au Parc des Princes, descente des joueurs, échauffement, highlight du match, plans de célébration des joueurs saluant les supporters, et fin du match.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">07</div>
+      <div class="mission-title">Enrichissement des archives féminines</div>
+      <p class="mission-body">Indexation de résumés de matchs et de séquences d'entraînement de l'équipe féminine, afin de renforcer une base documentaire jusqu'alors moins développée que celle de l'équipe masculine, un enjeu de communication croissant pour le club.</p>
+    </div>
+    <div class="mission-item fi">
+      <div class="mission-num">08</div>
+      <div class="mission-title">Harmonisation des fichiers</div>
+      <p class="mission-body">Participation à la standardisation de la nomenclature des fichiers d'archives, afin de garantir cohérence et efficacité de la base de données sur le long terme.</p>
+    </div>
+    <div class="mission-item workshop fi">
+      <div class="mission-num">09</div>
+      <div>
+        <div class="mission-title">Workshop contenu vertical — 11 février 2026</div>
+        <p class="mission-body">Participation à une journée d'ateliers organisée par le club, à laquelle une grande partie des salariés étaient conviés. Des joueurs venaient réaliser les ateliers : petits jeux, formats vidéo courts. J'ai travaillé aux côtés de Victor et Paul, de l'équipe contenu vertical, en leur apportant mon aide sur les ateliers vidéo. Une expérience qui m'a permis d'observer de l'intérieur la création de contenus digitaux au PSG.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <h3>Compétences développées durant le stage</h3>
+    <div class="skills-row fi">
+      <span class="skill filled">Analyse de contenus audiovisuels</span>
+      <span class="skill filled">Gestion de l'information numérique</span>
+      <span class="skill filled">Logiciel MAM</span>
+      <span class="skill">Indexation documentaire</span>
+      <span class="skill">Communication digitale</span>
+      <span class="skill">Travail en équipe</span>
+      <span class="skill">Rigueur méthodologique</span>
+      <span class="skill">Veille éditoriale</span>
+    </div>
+    <p class="fi">
+      L'ensemble de ces missions m'a permis de renforcer mes capacités d'analyse et de lecture des contenus audiovisuels, de développer des compétences concrètes en gestion de l'information numérique et de mieux appréhender les enjeux de la communication dans le sport professionnel. Une erreur d'indexation rend une archive introuvable, et donc inutilisable, même si le fichier existe physiquement: cette réalité a fait de la rigueur une exigence permanente et formatrice.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 04 — ANALYSE
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="04" id="analyse">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 04</div>
+    <h1 class="chapter-title">Analyse<br><em>Critique</em></h1>
+    <p class="chapter-sub">
+      Réflexion approfondie sur les enjeux de la documentation audiovisuelle dans l'environnement du sport professionnel.
+    </p>
+  </div>
+</div>
+
+<div class="problematique">
+  <div class="wrap">
+    <div class="problematique-label">Problématique centrale</div>
+    <p class="problematique-text">En quoi la documentation audiovisuelle constitue-t-elle un enjeu stratégique pour la communication d'un club sportif professionnel à l'ère du numérique&nbsp;?</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <div class="analyse-item fi">
+      <div class="analyse-n">1</div>
+      <div>
+        <div class="analyse-title">Un enjeu stratégique souvent invisible</div>
+        <p class="analyse-body">L'un des enseignements les plus marquants de cette expérience est la prise de conscience du rôle véritablement stratégique que joue la documentation audiovisuelle dans le fonctionnement d'un grand club sportif. Supportrice du PSG depuis de nombreuses années, je regardais les matchs, les avant-matchs, les entraînements, les no comment et tout ce qui était posté sur les réseaux sociaux, sans jamais imaginer le travail qui se cachait derrière. Avant ce stage, quand je regardais une archive ou un highlight du club, je ne pensais pas une seconde à tout ce qui l'avait rendu accessible : quelqu'un avait visionné des heures de rushes, identifié les moments clés, les avait décrits avec précision pour qu'ils soient retrouvables en quelques secondes par toutes les équipes qui en ont besoin au quotidien. Il y a une vraie barrière entre ce que le public perçoit et tout le travail invisible qui se passe en coulisses.</p>
+        <p class="analyse-body">Ce stage m'a permis de franchir cette barrière et de comprendre à quel point ce travail est fondamental. C'est grâce à l'indexation et à l'archivage que l'on peut, des années plus tard, retrouver un but historique pour l'anniversaire du club, illustrer un documentaire, ou redonner vie à un moment marquant de son histoire. Chaque séquence archivée a sa propre valeur, son propre récit. Sans ce travail, ces moments seraient perdus, et avec eux une partie de sa mémoire.</p>
+      </div>
+    </div>
+
+    <div class="analyse-item fi">
+      <div class="analyse-n">2</div>
+      <div>
+        <div class="analyse-title">Les défis de l'indexation à grande échelle</div>
+        <p class="analyse-body">L'ampleur du travail d'indexation nécessaire pour gérer les archives d'un club comme le PSG m'a particulièrement frappée. Chaque semaine, les matchs, les entraînements et les événements divers génèrent un volume important de nouvelles vidéos qui doivent être intégrées, visionnées, analysées et indexées dans les meilleurs délais. Cette tension entre volume à traiter et exigence de qualité m'a fait comprendre très concrètement à quoi sert une bonne indexation.</p>
+        <p class="analyse-body">Dès mon premier exercice, indexer un highlights, j'ai mal compris la consigne et j'ai tout noté d'un coup au lieu de procéder étape par étape. J'ai recommencé, et ce second essai a été nettement meilleur : c'est à partir de là que j'ai saisi la logique du travail, qui n'est pas de tout capturer mais de capturer ce qui compte, avec précision. La gestion du timing a été un autre point d'apprentissage clé, il fallait marquer le début et la fin d'une action dans son entièreté, ni trop tôt ni trop tard, pour que la séquence soit réellement exploitable. Au fil des semaines, j'ai appris à mieux calibrer ces instants.</p>
+        <p class="analyse-body">J'ai aussi commis des erreurs de sur-indexation, en voulant parfois indexer des joueurs ou des actions secondaires alors qu'il faut privilégier ce qui est au centre de l'image et ce qui constitue le moment clé. Tout ce qui est indexé pourra resservir, et quand une équipe cherche une séquence précise (un graphiste, un monteur, ou toute autre personne du club ayant besoin d'archives), elle doit la retrouver immédiatement. C'est là tout l'enjeu de ce travail : une archive bien indexée est une archive vivante, directement exploitable.</p>
+      </div>
+    </div>
+
+    <div class="analyse-item fi">
+      <div class="analyse-n">3</div>
+      <div>
+        <div class="analyse-title">Les relations professionnelles et le travail d'équipe</div>
+        <p class="analyse-body">Sur le plan humain, ce stage a été marqué par la qualité de l'accueil et de l'encadrement dont j'ai bénéficié. Virginie et Salama ont fait preuve d'une grande disponibilité et d'une véritable pédagogie dans la transmission de leurs méthodes : toutes deux prenaient le temps d'expliquer non seulement quoi faire, mais pourquoi on le faisait ainsi, le raisonnement documentaire derrière chaque tâche. J'ai apprécié d'être intégrée comme un membre à part entière de l'équipe dès les premiers jours, avec des missions concrètes et une réelle responsabilité dans la qualité des archives produites.</p>
+        <p class="analyse-body">Travailler en openspace avec les graphistes et les monteurs a également été très enrichissant : je pouvais suivre leurs sujets au quotidien, leur poser directement les questions qui me venaient, et observer concrètement par quelles étapes un fichier doit passer avant d'aboutir à un rendu final. Cette proximité m'a permis de comprendre de manière vivante le rôle que jouent les archives bien indexées dans leur travail au quotidien.</p>
+      </div>
+    </div>
+
+    <div class="analyse-item fi">
+      <div class="analyse-n">4</div>
+      <div>
+        <div class="analyse-title">Difficultés rencontrées et dépassement</div>
+        <p class="analyse-body">La principale difficulté a concerné la prise en main du logiciel MAM, dont l'ergonomie et la logique d'organisation demandaient un temps d'adaptation. Maîtriser la structure des dossiers, les conventions de nommage et la façon dont les métadonnées devaient être renseignées a nécessité plusieurs jours de pratique intensive avant de devenir vraiment autonome. Une autre difficulté plus spécifique est apparue lors du travail sur les archives féminines : moins familière avec ces joueuses, il m'a fallu un effort d'identification supplémentaire pour indexer correctement les séquences. Cette limite s'est progressivement levée avec la pratique, et l'accompagnement de mes tutrices m'a permis de devenir autonome sur l'ensemble des tâches courantes dès la fin de la deuxième semaine.</p>
+      </div>
+    </div>
+
+    <div class="analyse-item fi">
+      <div class="analyse-n">5</div>
+      <div>
+        <div class="analyse-title">Limites observées et pistes d'amélioration</div>
+        <p class="analyse-body">La limite la plus notable concerne le traitement inégal des archives entre les deux sections de football: si les vidéos du football masculin font l'objet d'une indexation très complète, les archives du football féminin présentaient parfois des lacunes qui limitaient leur exploitabilité. Cette différence s'explique avant tout par le volume des demandes reçues par le service: l'indexation se fait en priorité en fonction des sollicitations, et celles-ci sont nettement plus nombreuses pour le football masculin que pour le féminin. Dans un contexte où le développement du sport féminin constitue un enjeu de communication croissant, la qualité de ces archives représente malgré tout un levier stratégique à ne pas négliger: les missions que j'ai menées sur les archives féminines s'inscrivaient précisément dans cette logique de rééquilibrage. Cette réalité m'a permis de mesurer l'ampleur du travail accompli au quotidien par Virginie et Salama, et la rigueur que cela exige pour maintenir une base de données fiable et exploitable sur l'ensemble des disciplines.</p>
+      </div>
+    </div>
+
+    <div class="analyse-item fi">
+      <div class="analyse-n">6</div>
+      <div>
+        <div class="analyse-title">Bilan critique</div>
+        <p class="analyse-body">Je repars de ce stage avec le sentiment d'avoir découvert un métier que je ne connaissais pas avant d'y entrer, et qui m'a pourtant totalement convaincue : la documentation audiovisuelle est un métier à part entière, discret mais absolument central dans la vie d'une organisation sportive de cette envergure. Comprendre concrètement comment ce travail s'inscrit dans sa chaîne de communication globale a été l'une des grandes révélations de ces cinq semaines.</p>
+        <p class="analyse-body">J'en retiens la qualité de l'accueil et de l'encadrement reçu dès la première semaine, avec des missions immédiatement concrètes, ainsi que la prise en main d'un véritable outil métier, le logiciel MAM. Le sentiment d'avoir touché, même brièvement, à la chaîne de valeur médiatique d'un grand club a aussi beaucoup compté pour moi, et leurs retours sur la qualité de mon travail ont été une vraie validation.</p>
+        <p class="analyse-body">Parmi mes points forts validés, je retiens ma capacité à m'adapter rapidement à un environnement exigeant, ma rigueur dans le traitement de l'information et ma progression dans la maîtrise des outils spécialisés. Côté axes de progression, ma connaissance de l'univers sportif dans sa globalité, notamment le handball et le judo, méritera d'être renforcée. Ces limites n'ont rien d'un échec : elles sont la marque d'une vraie montée en compétence sur cinq semaines.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 05 — PERSPECTIVES
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="05" id="perspectives">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 05</div>
+    <h1 class="chapter-title">Perspec<em>tives</em></h1>
+    <p class="chapter-sub">
+      Ce que ce stage a changé dans ma vision de mon projet professionnel.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <p class="fi">
+      Ce stage au Paris Saint-Germain constitue une étape décisive dans la construction de mon projet professionnel. Il m'a permis de passer du cadre théorique de la formation universitaire à une réalité professionnelle concrète, et de clarifier avec précision la direction dans laquelle je souhaite m'engager.
+    </p>
+    <p class="fi">
+      L'immersion dans le service de documentation audiovisuelle m'a révélé l'envers du décor d'une organisation médiatique de premier plan: j'ai compris que chaque contenu visible (publication, reportage, interview) repose sur un travail documentaire rigoureux en amont. Cette découverte a profondément orienté ma réflexion sur mon parcours à venir.
+    </p>
+  </div>
+</div>
+
+<div class="perspectives-feature fi">
+  <div class="perspectives-big">
+    Master
+    <div class="perspectives-tag">Journalisme</div>
+  </div>
+  <div class="perspectives-body">
+    <p>
+      À l'issue de ce stage, mon projet s'est précisé: je souhaite poursuivre mes études en <strong style="color:#fff">master journalisme</strong>, avec l'ambition de mettre ces compétences au service d'un club que j'ai appris à connaître et à apprécier en profondeur pendant ces cinq semaines, et d'y poursuivre mon chemin si l'occasion se présente.
+    </p>
+    <p>
+      C'est dans cet esprit que, lors de ma dernière semaine de stage, j'ai pris l'initiative d'aborder ce sujet avec <strong style="color:#fff">Fabrice Porzyc, journaliste multimédia au sein du club</strong>, dont les missions correspondent pleinement à ce vers quoi je veux me diriger, pour lui demander si une alternance pourrait être envisageable au sein de son service. Il m'a indiqué que cette alternance porterait notamment sur le handball. J'ai préféré tenter ma chance avant de partir plutôt que de laisser cette question sans réponse.
+    </p>
+    <div class="badge-alternance">
+      → Une question posée avant de partir: une alternance dans ce service ?
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <p class="fi">
+      Cette opportunité représente pour moi une continuité naturelle avec l'expérience vécue au sein du service post-production documentation, en approfondissant cette fois la dimension journalistique et éditoriale de la production de contenus, tout en consolidant les réflexes professionnels et la connaissance acquise au cours de ces cinq semaines.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CHAPTER 06 — ANNEXES
+═══════════════════════════════════════════════ -->
+<div class="chapter" data-num="06" id="annexes">
+  <div class="chapter-inner">
+    <div class="chapter-eyebrow">Partie 06</div>
+    <h1 class="chapter-title">Lexi<em>que</em></h1>
+    <p class="chapter-sub">
+      Le vocabulaire métier acquis durant ces cinq semaines au sein du service documentation.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section">
+    <h3>Lexique des termes techniques</h3>
+    <p class="fi">
+      Voici quelques termes techniques rencontrés et utilisés au quotidien durant ce stage, dont la maîtrise témoigne de la montée en compétence sur le vocabulaire métier de la documentation audiovisuelle.
+    </p>
+    <div class="lexique fi">
+      <div class="lex-term">
+        <div class="lex-word">MAM (Media Asset Management)</div>
+        <p>Logiciel spécialisé dans la gestion centralisée de fichiers médias (vidéos, images, sons). Il permet de stocker, d'organiser, de rechercher et de distribuer des contenus audiovisuels à grande échelle, en s'appuyant sur un système de métadonnées.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">Métadonnées</div>
+        <p>Informations descriptives associées à un fichier numérique (date, auteur, type de contenu, mots-clés, etc.) permettant de le caractériser et de le retrouver dans une base de données.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">Indexation</div>
+        <p>Opération documentaire consistant à analyser le contenu d'un document et à lui attribuer des descripteurs ou mots-clés afin de faciliter sa recherche ultérieure.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">Nomenclature</div>
+        <p>Système de règles définissant la manière dont les fichiers doivent être nommés dans une base de données, afin de garantir cohérence et lisibilité.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">Post-production</div>
+        <p>Phase de travail qui intervient après le tournage. Elle regroupe les opérations de traitement, de montage, d'étalonnage et d'archivage des contenus audiovisuels.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">SASP — Société Anonyme Sportive Professionnelle</div>
+        <p>Statut juridique français spécifique aux clubs sportifs professionnels.</p>
+      </div>
+      <div class="lex-term">
+        <div class="lex-word">QSI — Qatar Sports Investments</div>
+        <p>Fonds d'investissement qatari propriétaire du Paris Saint-Germain depuis 2011, filiale de Qatar Investment Authority (QIA).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CLOSING
+═══════════════════════════════════════════════ -->
+<div class="closing">
+  <div class="closing-inner">
+    <div class="closing-tag">Rapport de Stage — 2025-2026</div>
+    <div class="closing-name">Margot Lesieur</div>
+    <div class="closing-meta">Licence 3 Information &amp; Communication · ISIC · Bordeaux Montaigne</div>
+    <div class="closing-divider"></div>
+    <div style="font-family:var(--font-display);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ardoise)">
+      Paris Saint-Germain · Service Post-Production Documentation<br>
+      29 janvier — 6 mars 2026 · Boulogne-Billancourt
+    </div>
+  </div>
+</div>
+
+<script>
+  // Apparition au scroll
+  const items = document.querySelectorAll('.fi');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  items.forEach(el => io.observe(el));
+
+  // Décalage progressif pour les grilles
+  document.querySelectorAll('.missions-grid, .stats-grid').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = (i * 0.05) + 's';
+    });
+  });
+
+  // Navigation active au scroll
+  const secs = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const navIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const a = document.querySelector('.nav-links a[href="#' + e.target.id + '"]');
+        if (a) {
+          links.forEach(l => l.classList.remove('active'));
+          a.classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  secs.forEach(s => navIo.observe(s));
+</script>
+
+</body>
+</html>
