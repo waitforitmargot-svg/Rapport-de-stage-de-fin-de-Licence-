@@ -1,5 +1,4 @@
 # Rapport-de-stage-de-fin-de-Licence-
-<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
